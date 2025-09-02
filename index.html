@@ -2,14 +2,14 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Meus 35 Links</title>
+  <title>Meus 60 Links</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <style>
     body { font-family: Arial, sans-serif; margin: 24px; }
     h1 { margin-bottom: 8px; }
     .grid {
       display: grid; gap: 12px;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
       margin-top: 16px;
     }
     a.btn {
@@ -19,25 +19,52 @@
       transition: transform .1s ease, box-shadow .15s ease;
     }
     a.btn:hover { transform: translateY(-2px); box-shadow: 0 3px 10px rgba(0,0,0,.1); }
+    h2 { margin-top: 32px; }
   </style>
 </head>
 <body>
   <h1>Variações de Link</h1>
-  <p>Cada botão leva ao mesmo destino, mas com referência diferente (#01 a #35).</p>
+  <p>Cada botão leva ao mesmo destino, mas com nomes diferentes (total: 60).</p>
 
   <div class="grid" id="links"></div>
 
   <script>
-    // === LISTA GERADA AUTOMATICAMENTE ===
     const nomes = [];
-    for (let i = 1; i <= 35; i++) {
-      nomes.push(`Grupo de Ofertas #${String(i).padStart(2,'0')}`);
+
+    // 10 GrupoOfertas
+    for (let i = 1; i <= 10; i++) {
+      nomes.push(`GrupoOfertas#${String(i).padStart(2,'0')}`);
+    }
+
+    // 10 SuperOfertas
+    for (let i = 1; i <= 10; i++) {
+      nomes.push(`SuperOfertas#${String(i).padStart(2,'0')}`);
+    }
+
+    // 10 OfertasEspeciais
+    for (let i = 1; i <= 10; i++) {
+      nomes.push(`OfertasEspeciais#${String(i).padStart(2,'0')}`);
+    }
+
+    // 10 SuperGrupoPromocoes
+    for (let i = 1; i <= 10; i++) {
+      nomes.push(`SuperGrupoPromocoes#${String(i).padStart(2,'0')}`);
+    }
+
+    // 10 GrupoOfertasUrgentes
+    for (let i = 1; i <= 10; i++) {
+      nomes.push(`GrupoOfertasUrgentes#${String(i).padStart(2,'0')}`);
+    }
+
+    // 10 CrupoOfertasAchadinhos
+    for (let i = 1; i <= 10; i++) {
+      nomes.push(`CrupoOfertasAchadinhos#${String(i).padStart(2,'0')}`);
     }
 
     const container = document.getElementById('links');
 
     nomes.forEach((nome, idx) => {
-      const ref = String(idx+1).padStart(2,'0'); // 01, 02, 03...
+      const ref = String(idx+1).padStart(2,'0'); // 01..60
       const a = document.createElement('a');
       a.className = 'btn';
       a.href = `./go.html?ref=${ref}`;

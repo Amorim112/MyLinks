@@ -2,14 +2,14 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Meus 35 links</title>
+  <title>Meus 35 Links</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <style>
     body { font-family: Arial, sans-serif; margin: 24px; }
     h1 { margin-bottom: 8px; }
     .grid {
       display: grid; gap: 12px;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
       margin-top: 16px;
     }
     a.btn {
@@ -22,23 +22,28 @@
   </style>
 </head>
 <body>
-  <h1>Variações de link</h1>
-  <p>Clique em qualquer link abaixo — todos levam ao mesmo destino.</p>
+  <h1>Variações de Link</h1>
+  <p>Cada botão leva ao mesmo destino, mas com referência diferente (#01 a #35).</p>
 
   <div class="grid" id="links"></div>
 
   <script>
-    const total = 35;
+    // === LISTA GERADA AUTOMATICAMENTE ===
+    const nomes = [];
+    for (let i = 1; i <= 35; i++) {
+      nomes.push(`Grupo de Ofertas #${String(i).padStart(2,'0')}`);
+    }
+
     const container = document.getElementById('links');
 
-    for (let i = 1; i <= total; i++) {
-      const ref = String(i).padStart(2, '0');   // "01", "02", ..., "35"
+    nomes.forEach((nome, idx) => {
+      const ref = String(idx+1).padStart(2,'0'); // 01, 02, 03...
       const a = document.createElement('a');
       a.className = 'btn';
       a.href = `./go.html?ref=${ref}`;
-      a.textContent = `Link #${ref}`;
+      a.textContent = nome;
       container.appendChild(a);
-    }
+    });
   </script>
 </body>
 </html>

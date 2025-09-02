@@ -4,26 +4,43 @@
   <meta charset="UTF-8" />
   <title>Redirecionando...</title>
   <script>
-    // ===== CONFIGURE SEU LINK FINAL AQUI =====
-    const DESTINO = "https://amorim112.github.io/CupomSopee/LinkOfertasCupons.html";  
+    // ===== COLOQUE AQUI O SEU LINK FINAL =====
+    const DESTINO = "https://amorim112.github.io/CupomSopee/LinkOfertasCupons.html";
     // =========================================
 
-    // Captura o parâmetro ?ref= (01, 02, 03...)
+    // Lê parâmetros ?cat=...&ref=...
     const params = new URLSearchParams(window.location.search);
-    const ref = params.get("ref");
+    const cat = params.get("cat");              // ex.: "GrupoOfertas"
+    const ref = params.get("ref");              // ex.: "01".."10"
 
-    // Se quiser rastrear, adiciona UTM
-    let url = new URL(DESTINO);
-    if (ref) {
-      url.searchParams.set("utm_source", "ghpages");
-      url.searchParams.set("utm_content", ref);
-    }
+    // Monta URL de destino (com ou sem UTMs)
+    const url = new URL(DESTINO);
 
-    // Faz o redirecionamento
-    window.location.replace(url.toString());
+    // Se quiser rastrear a origem, mantive UTMs (ajuste os nomes se quiser)
+    if (cat) url.searchParams.set("utm_source", cat);
+    if (ref) url.searchParams.set("utm_content", ref);
+
+    const finalUrl = url.toString();
+
+    // Redireciona
+    window.location.replace(finalUrl);
   </script>
 </head>
 <body>
-  <p>Redirecionando... Se não funcionar, <a href="https://s.shopee.com.br/60Fxu2TlG0">clique aqui</a>.</p>
+  <p>Redirecionando... Se não funcionar, <a id="fallback" href="#">clique aqui</a>.</p>
+  <script>
+    // Link de fallback coerente com as UTMs acima
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const cat = params.get("cat");
+      const ref = params.get("ref");
+      const url = new URL("https://s.shopee.com.br/60Fxu2TlG0"); // mantenha em sincronia com DESTINO
+
+      if (cat) url.searchParams.set("utm_source", cat);
+      if (ref) url.searchParams.set("utm_content", ref);
+
+      document.getElementById("fallback").href = url.toString();
+    })();
+  </script>
 </body>
 </html>

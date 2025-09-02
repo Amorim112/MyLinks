@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Redirecionando...</title>
+  <script>
+    // ===== CONFIGURE SEU LINK AQUI =====
+    const DESTINO = "https://s.shopee.com.br/60Fxu2TlG0";
+    // ==================================
+
+    // Captura o número do link (?ref=01, ?ref=02...)
+    const params = new URLSearchParams(window.location.search);
+    const ref = params.get("ref");
+
+    // Se quiser rastrear de onde veio, adiciona UTM
+    let url = new URL(DESTINO);
+    if (ref) {
+      url.searchParams.set("utm_source", "ghpages");
+      url.searchParams.set("utm_content", ref);
+    }
+
+    // Faz o redirecionamento
+    window.location.replace(url.toString());
+  </script>
+</head>
+<body>
+  <p>Redirecionando... Se não funcionar, <a href="https://s.shopee.com.br/60Fxu2TlG0">clique aqui</a>.</p>
+</body>
+</html>

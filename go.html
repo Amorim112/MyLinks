@@ -4,15 +4,15 @@
   <meta charset="UTF-8" />
   <title>Redirecionando...</title>
   <script>
-    // ===== CONFIGURE SEU LINK AQUI =====
-    const DESTINO = "https://s.shopee.com.br/60Fxu2TlG0";
-    // ==================================
+    // ===== CONFIGURE SEU LINK FINAL AQUI =====
+    const DESTINO = "https://amorim112.github.io/CupomSopee/LinkOfertasCupons.html";  
+    // =========================================
 
-    // Captura o número do link (?ref=01, ?ref=02...)
+    // Captura o parâmetro ?ref= (01, 02, 03...)
     const params = new URLSearchParams(window.location.search);
     const ref = params.get("ref");
 
-    // Se quiser rastrear de onde veio, adiciona UTM
+    // Se quiser rastrear, adiciona UTM
     let url = new URL(DESTINO);
     if (ref) {
       url.searchParams.set("utm_source", "ghpages");

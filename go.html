@@ -4,42 +4,48 @@
   <meta charset="UTF-8" />
   <title>Redirecionando...</title>
   <script>
-    // ===== COLOQUE AQUI O SEU LINK FINAL =====
-    const DESTINO = "https://ofertascuponsrodrigo.blogspot.com/p/links-especiais.html";
-    // =========================================
+    // ===== LINKS =====
+    const DESTINO = "https://ofertascuponsrodrigo.blogspot.com/p/links-especiais.html"; // oficial
+    const OPCIONAL = "https://s.shopee.com.br/60Fxu2TlG0"; // opcional
+    // =================
 
     // Lê parâmetros ?cat=...&ref=...
     const params = new URLSearchParams(window.location.search);
-    const cat = params.get("cat");              // ex.: "GrupoOfertas"
-    const ref = params.get("ref");              // ex.: "01".."10"
+    const cat = params.get("cat");
+    const ref = params.get("ref");
 
-    // Monta URL de destino (com ou sem UTMs)
-    const url = new URL(DESTINO);
+    // Monta URL de destino
+    function montarUrl(base) {
+      const url = new URL(base);
+      if (cat) url.searchParams.set("utm_source", cat);
+      if (ref) url.searchParams.set("utm_content", ref);
+      return url.toString();
+    }
 
-    // Se quiser rastrear a origem, mantive UTMs (ajuste os nomes se quiser)
-    if (cat) url.searchParams.set("utm_source", cat);
-    if (ref) url.searchParams.set("utm_content", ref);
+    const urlOficial = montarUrl(DESTINO);
+    const urlOpcional = montarUrl(OPCIONAL);
 
-    const finalUrl = url.toString();
-
-    // Redireciona
-    window.location.replace(finalUrl);
+    // Testa se o oficial responde antes de redirecionar
+    fetch(urlOficial, { method: "HEAD", mode: "no-cors" })
+      .then(() => {
+        // Se não deu erro → redireciona oficial
+        window.location.replace(urlOficial);
+      })
+      .catch(() => {
+        // Se falhou → redireciona opcional
+        window.location.replace(urlOpcional);
+      });
   </script>
 </head>
 <body>
   <p>Redirecionando... Se não funcionar, <a id="fallback" href="#">clique aqui</a>.</p>
   <script>
-    // Link de fallback coerente com as UTMs acima
-    (function () {
-      const params = new URLSearchParams(window.location.search);
-      const cat = params.get("cat");
-      const ref = params.get("ref");
-      const url = new URL("https://s.shopee.com.br/60Fxu2TlG0"); // mantenha em sincronia com DESTINO
-
+    // Fallback manual já aponta para o opcional
+    document.getElementById("fallback").href = (function () {
+      const url = new URL("https://s.shopee.com.br/60Fxu2TlG0");
       if (cat) url.searchParams.set("utm_source", cat);
       if (ref) url.searchParams.set("utm_content", ref);
-
-      document.getElementById("fallback").href = url.toString();
+      return url.toString();
     })();
   </script>
 </body>
